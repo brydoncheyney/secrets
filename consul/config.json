@@ -1,0 +1,8 @@
+{
+  "server": true,
+  "bootstrap": true,
+  "data_dir": "/tmp/consuldata",
+  "client_addr": "0.0.0.0",
+  "ui": true,
+  "acl_datacenter": "dc1"
+}

@@ -18,16 +18,14 @@ services:
     image: consul:latest
     hostname: consul
     domainname: internal
+    volumes:
+      - ./consul/:/consul/
     ports:
       - "8400:8400"
       - "8500:8500"
+      - "8600:8600"
     entrypoint:
       - consul
       - agent
-      - -server
-      - -bootstrap
-      - -data-dir=/tmp/consuldata
+      - -config-file=/consul/config.json
       - -bind={{ GetInterfaceIP "eth0" }}
-      - -ui
-      - -client
-      - 0.0.0.0
