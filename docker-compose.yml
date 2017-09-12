@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  dns:
+    container_name: dns
+    image: defreitas/dns-proxy-server
+    hostname: dns
+    domainname: internal
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /etc/resolv.conf:/etc/resolv.conf
+    ports:
+      - "5380:5380"
+    logging:
+        driver: none
+  consul:
+    container_name: consul
+    image: consul:latest
+    hostname: consul
+    domainname: internal
+    ports:
+      - "8400:8400"
+      - "8500:8500"
+    entrypoint:
+      - consul
+      - agent
+      - -server
+      - -bootstrap
+      - -data-dir=/tmp/consuldata
+      - -bind={{ GetInterfaceIP "eth0" }}
+      - -ui
+      - -client
+      - 0.0.0.0
