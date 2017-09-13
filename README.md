@@ -6,7 +6,13 @@ Secret management using [vault](https://www.vaultproject.io/) and [consul](https
 
 ## vault
 
-TODO
+To initialise vault
+
+    docker exec -ti vault /vault/init
+
+To add a simple secret
+
+    docker exec -ti vault /vault/add-secret KEY VALUE
 
 ## consul
 

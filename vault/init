@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+# init
+vault init > /vault/keys
+
+# unseal
+for i in {1..3}; do
+  vault unseal $(sed -n "${i}p" /vault/keys | awk '{print $NF}')
+done
