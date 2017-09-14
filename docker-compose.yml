@@ -33,7 +33,7 @@ services:
     depends_on:
       - consul
     environment:
-      - VAULT_ADDR=http://127.0.0.1:8200
+      - VAULT_ADDR=http://vault.internal:8200
     container_name: vault
     image: vault:latest
     hostname: vault
