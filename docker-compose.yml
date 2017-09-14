@@ -29,9 +29,26 @@ services:
       - agent
       - -config-file=/consul/config.json
       - -bind={{ GetInterfaceIP "eth0" }}
-  vault:
+  consul-agent:
     depends_on:
       - consul
+    container_name: consul-agent
+    image: consul:latest
+    hostname: consul-agent
+    domainname: internal
+    ports:
+      - "8400"
+      - "8500"
+      - "8600/udp"
+    entrypoint:
+      - consul
+      - agent
+      - -data-dir=/tmp/consuldata
+      - -retry-join=consul.internal
+      - -ui
+  vault:
+    depends_on:
+      - consul-agent
     environment:
       - VAULT_ADDR=http://vault.internal:8200
     container_name: vault
