@@ -11,7 +11,7 @@ If vault fails to start due to consul still initialising
 
 To provision additional consul agents
 
-    docker-compose scale consul-agent=3
+    docker-compose up --scale consul-agent=3
 
 ## Consul
 
