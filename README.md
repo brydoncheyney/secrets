@@ -4,6 +4,15 @@ Secret management using [vault](https://www.vaultproject.io/) and [consul](https
 
     docker-compose up
 
+If vault fails to start due to consul still initialising
+
+    docker-compose up dns consul
+    docker-compose up vault
+
+To provision additional consul agents
+
+    docker-compose scale consul-agent=3
+
 ## Consul
 
 Add a secret
@@ -22,11 +31,21 @@ To initialise vault
 
     docker exec -ti vault /vault/init
 
+To enable/view auditing
+
+    docker exec -ti vault /vault/enable-audit
+    docker exec -ti vault tail -f /var/log/vault/audit.log
+
 To add a simple secret
 
     docker exec -ti vault /vault/add-secret KEY VALUE
 
 ### CLI
+
+Install the `vault` cli
+
+    wget -q https://releases.hashicorp.com/vault/0.8.3/vault_0.8.3_linux_amd64.zip
+    sudo unzip -o -d /usr/local/bin vault_0.8.3_linux_amd64.zip
 
 Set up the vault environment
 

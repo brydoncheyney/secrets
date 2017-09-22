@@ -32,10 +32,7 @@ services:
   consul-agent:
     depends_on:
       - consul
-    container_name: consul-agent
     image: consul:latest
-    hostname: consul-agent
-    domainname: internal
     ports:
       - "8400"
       - "8500"
@@ -48,7 +45,7 @@ services:
       - -ui
   vault:
     depends_on:
-      - consul-agent
+      - consul
     environment:
       - VAULT_ADDR=http://vault.internal:8200
     container_name: vault

@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+
+export VAULT_TOKEN=$(awk '/Initial Root Token/ {print $NF}' /vault/keys)
+
+vault audit-enable file file_path=/var/log/vault/audit.log
